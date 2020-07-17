@@ -12,6 +12,7 @@
 11. Palindrome Decompositions (BackTracking)
 12. Letter Combinations of a Phone Number (BackTracking)
 13. Rat in a Maze (BackTracking)
+14. 698. Partition to K Equal Sum Subsets (BackTracking)
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 1. 93. Restore IP Addresses  https://leetcode.com/problems/restore-ip-addresses/
@@ -583,5 +584,49 @@ public class Solution {
         // if (x, y outside maze) return false 
         return (x >= 0 && x < N && y >= 0 && y < N && maze[x][y] == 1); 
     } 
+
+*--------------------------------------------------------*--------------------------------------------------------------------------------------*
+
+14. 698. Partition to K Equal Sum Subsets (BackTracking)
+
+Input: nums = [4, 3, 2, 3, 5, 2, 1], k = 4
+Output: True
+Explanation: It's possible to divide it into 4 subsets (5), (1, 4), (2,3), (2,3) with equal sums.
+
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int sum = 0, maxNum = 0;
+        for (int num : nums) {
+            sum += num;
+            maxNum = Math.max(maxNum, num);
+        }
+        if (sum % k != 0 || maxNum > sum / k) {
+            return false;
+        }
+        return canPartitionKSubsetsFrom(nums, k, new boolean[nums.length], sum / k, 0, 0);
+    }
+    
+    private boolean canPartitionKSubsetsFrom( int[] nums, int k, boolean[] visited, int targetSubsetSum, 
+                                              int curSubsetSum, int nextIndexToCheck) {
+        if (k == 0) 
+            return true;
+        
+        if (curSubsetSum == targetSubsetSum)
+            return canPartitionKSubsetsFrom(nums, k - 1, visited, targetSubsetSum, 0, 0);
+        
+        for (int i = nextIndexToCheck; i < nums.length; i++) {
+            
+            if (!visited[i] && curSubsetSum + nums[i] <= targetSubsetSum) {
+                visited[i] = true;
+                if (canPartitionKSubsetsFrom(nums, k, visited, targetSubsetSum, curSubsetSum + nums[i],
+                                             i + 1)) {
+                    return true;
+                }
+                visited[i] = false;
+            }
+        }
+        
+        return false;
+    }
+
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
