@@ -13,6 +13,7 @@
 12. Letter Combinations of a Phone Number (BackTracking)
 13. Rat in a Maze (BackTracking)
 14. 698. Partition to K Equal Sum Subsets (BackTracking)
+15. 797. All Paths From Source to Target (BackTracking) (Graph)
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 1. 93. Restore IP Addresses  https://leetcode.com/problems/restore-ip-addresses/
@@ -629,4 +630,31 @@ Explanation: It's possible to divide it into 4 subsets (5), (1, 4), (2,3), (2,3)
     }
 
 
+*--------------------------------------------------------*--------------------------------------------------------------------------------------*
+15. 797. All Paths From Source to Target  https://leetcode.com/problems/all-paths-from-source-to-target/discuss/118713/Java-DFS-Solution
+
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+					
+        path.add(0);
+        dfsSearch(graph, 0, res, path);
+					
+        return res;
+    }
+
+    private void dfsSearch(int[][] graph, int node, List<List<Integer>> res, List<Integer> path) {
+        if (node == graph.length - 1) {
+            res.add(new ArrayList<Integer>(path));
+            return;
+        }
+
+        for (int nextNode : graph[node]) {
+            path.add(nextNode);
+            dfsSearch(graph, nextNode, res, path);
+            path.remove(path.size() - 1);
+        }
+    }
+	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
