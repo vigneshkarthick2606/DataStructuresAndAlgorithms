@@ -1,3 +1,5 @@
+/*
+
 1. Sort Colors(Dutch National Flag alg)
 2. Maximum Sum Subarray of Size K (easy)
 3. Single Number II
@@ -13,9 +15,12 @@
 13. Minimum Number of Platforms Required for a Railway/Bus Station 
 14. Reverse an array in groups of given size
 15. 941. Valid Mountain Array
+16. 16. 56. Merge Intervals
 
+
+*/
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-1. Sort Colors(Dutch National Flag alg)
+// 1. Sort Colors(Dutch National Flag alg)
 
     public void sortColors(int[] nums) {
         
@@ -44,7 +49,7 @@
 
 
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-2. Maximum Sum Subarray of Size K (easy)
+// 2. Maximum Sum Subarray of Size K (easy)
 
   public static int findMaxSumSubArray(int k, int[] arr) {
     int windowSum = 0, maxSum = 0;
@@ -63,9 +68,11 @@
   }
   
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-3. Single Number II
+/* 3. Single Number II
  
 Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
+
+*/
 
     public int singleNumber(int[] nums) {
         int result = 0; 
@@ -87,7 +94,7 @@ Given a non-empty array of integers, every element appears three times except fo
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
 
-4. Majority Element N/2
+// 4. Majority Element N/2
 
 	public static Integer getMajorityElement(int[] array) {
 
@@ -124,7 +131,7 @@ Given a non-empty array of integers, every element appears three times except fo
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
 
-5. Majority Element N/3
+// 5. Majority Element N/3
 
     public int repeatedNumber(final List<Integer> a) {
         
@@ -167,7 +174,7 @@ Given a non-empty array of integers, every element appears three times except fo
     }
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-6. 287. Find the Duplicate Number https://leetcode.com/articles/find-the-duplicate-number/
+/*6. 287. Find the Duplicate Number https://leetcode.com/articles/find-the-duplicate-number/
 
 You must not modify the array (assume the array is read only).
 You must use only constant, O(1) extra space.
@@ -175,6 +182,7 @@ Your runtime complexity should be less than O(n2). --> below is O(n) solution
 There is only one duplicate number in the array, but it could be repeated more than once
 
 Floyd's Tortoise and Hare (Cycle Detection)
+*/
 
   public int findDuplicate(int[] nums) {
     // Find the intersection point of the two runners.
@@ -196,7 +204,7 @@ Floyd's Tortoise and Hare (Cycle Detection)
   }
 
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-
+/*
 7. 239. Sliding Window Maximum   https://leetcode.com/problems/sliding-window-maximum/discuss/65884/Java-O(n)-solution-using-deque-with-explanation
 
 We scan the array from 0 to n-1, keep "promising" elements in the deque. The algorithm is amortized O(n) as each element is put and polled once.
@@ -208,6 +216,7 @@ At each i, we keep "promising" elements, which are potentially max number in win
  2. Now only those elements within [i-(k-1),i] are in the deque. We then discard elements smaller than a[i] from the tail. This is because if a[x] <a[i] and x<i, then a[x] has no chance to be the "max" in [i-(k-1),i], or any other subsequent window: a[i] would always be a better candidate.
 
  3. As a result elements in the deque are ordered in both sequence in array and their value. At each step the head of the deque is the max element in [i-(k-1),i]
+*/
 
     public int[] maxSlidingWindow(int[] a, int k) {		
 		if (a == null || k <= 0) {
@@ -237,7 +246,7 @@ At each i, we keep "promising" elements, which are potentially max number in win
 	}
 
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-8. Find subarray with given sum | Set 1
+// 8. Find subarray with given sum | Set 1
 
     int subArraySum(int arr[], int n, int sum){ 
         int curr_sum = arr[0], start = 0, i; 
@@ -270,7 +279,7 @@ At each i, we keep "promising" elements, which are potentially max number in win
     } 
 
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-9. Find subarray with given sum | Set 2 (Handles Negative Numbers)   ----> Not able to remember the logic at first glance 
+//9. Find subarray with given sum | Set 2 (Handles Negative Numbers)   ----> Not able to remember the logic at first glance 
 
     public static void subArraySum(int[] arr, int n, int sum) { 
         //cur_sum to keep track of cummulative sum till that point 
@@ -309,9 +318,12 @@ At each i, we keep "promising" elements, which are potentially max number in win
   
     } 
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
+/*
 10. 15. 3Sum
 
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+*/
 
     public List<List<Integer>> threeSum(int[] nums) {
         
@@ -352,7 +364,7 @@ Given an array nums of n integers, are there elements a, b, c in nums such that 
     }
 
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-11. 42. Trapping Rain Water
+// 11. 42. Trapping Rain Water
 
 	public int trap(int[] height) {
 	  int n = height.length;
@@ -407,8 +419,10 @@ Given an array nums of n integers, are there elements a, b, c in nums such that 
     }
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-
+/*
 12. 11. Container With Most Water
+
+*/
 
     public int maxArea(int[] height) {
         
@@ -431,7 +445,9 @@ Given an array nums of n integers, are there elements a, b, c in nums such that 
     }
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
+/*
 13. Minimum Number of Platforms Required for a Railway/Bus Station  https://www.geeksforgeeks.org/minimum-number-platforms-required-railwaybus-station/
+*/
 
     int findPlatform(int arr[], int dep[], int n) { 
         // Sort arrival and departure arrays 
@@ -466,9 +482,12 @@ Given an array nums of n integers, are there elements a, b, c in nums such that 
     }
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
+/*
 14. Reverse an array in groups of given size
 
 Given an array, reverse every sub-array formed by consecutive k elements.
+
+*/
 
     void reverse(int arr[], int n, int k){ 
 	
@@ -493,18 +512,20 @@ Given an array, reverse every sub-array formed by consecutive k elements.
     } 
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
-
+/*
 15. 941. Valid Mountain Array
 
 Given an array A of integers, return true if and only if it is a valid mountain array.
 
 Recall that A is a mountain array if and only if:
 
+
     1. A.length >= 3
 	2. There exists some i with 0 < i < A.length - 1 such that:
 		A[0] < A[1] < ... A[i-1] < A[i]
 		A[i] > A[i+1] > ... > A[A.length - 1]
 
+*/
     public boolean validMountainArray(int[] A) {
         
         int N = A.length;
@@ -524,6 +545,47 @@ Recall that A is a mountain array if and only if:
 
         return i == N-1;
         
+    }
+	
+
+*-----------------------------------------------------------------------------------------------------------------------------------------------*
+/*
+
+16. 56. Merge Intervals
+
+Given a collection of intervals, merge all overlapping intervals.
+
+Example 1:
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+
+Example 2:
+
+Input: intervals = [[1,4],[2,3]]
+Output: [[1,4]]
+
+*/
+    public int[][] merge(int[][] intervals) {
+        
+        if(intervals.length <= 1) return intervals;
+        
+        List<int[]> result = new ArrayList<int[]>();
+        
+        Arrays.sort(intervals, (nums1, nums2) -> nums1[0] - nums2[0]);
+        
+        for(int[] curInterval: intervals){
+            
+            if(result.size() == 0 || result.get(result.size()-1)[1] < curInterval[0]){
+                result.add(curInterval);
+            }else{
+                result.get(result.size()-1)[1] = Math.max(result.get(result.size()-1)[1],curInterval[1]); // Using Max for coveing up Example 2 test case.
+            }
+            
+        }
+        
+        return result.toArray(new int[result.size()][]);
     }
 	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
