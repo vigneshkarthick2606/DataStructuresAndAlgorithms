@@ -1,16 +1,24 @@
+
+/*
 1. 443. String Compression
 2. 91. Decode Ways  https://leetcode.com/problems/decode-ways/
 3. 76. Minimum Window Substring
 4. Longest Palindromic Substring 
 5. Generate all Parentheses II
 6. 60. Kth Permutation Sequence
+7. 131. Palindrome Partitioning
+
+
+*/
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
 1. 443. String Compression
 
 Input: ["a","a","b","b","c","c","c"]
 Output:6
 Explanation: the first 6 characters of the input array should be: ["a","2","b","2","c","3"]
 
+*/
     public int compress(char[] chars) {
         int indexAns = 0, index = 0;
         while(index < chars.length){
@@ -29,13 +37,14 @@ Explanation: the first 6 characters of the input array should be: ["a","2","b","
     }
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-
+/*
 2. 91. Decode Ways  https://leetcode.com/problems/decode-ways/
 
 Input: "12"
 Output: 2
 Explanation: It could be decoded as "AB" (1 2) or "L" (12).
 
+*/
     public int numDecodings(String s) {
         if (s == null || s.length() == 0) {
             return 0;
@@ -58,11 +67,13 @@ Explanation: It could be decoded as "AB" (1 2) or "L" (12).
     }
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
 3. 76. Minimum Window Substring
 
 Input :  S = "ADOBECODEBANC", T = "ABC"
 Output: "BANC"
 
+*/
     public String minWindow(String s, String t) {
 		
         int[] map = new int[128];
@@ -99,8 +110,10 @@ Output: "BANC"
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-4. Longest Palindromic Substring 
-
+/*
+4. Longest Palindromic Substring
+ 
+*/
     public String longestPalindrome(String A) {
         
         char[] input = A.toCharArray();
@@ -135,8 +148,10 @@ Output: "BANC"
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
 5. Generate all Parentheses II
 
+*/
     public ArrayList<String> generateParenthesis(int A) {
         
         ArrayList<String> result = new ArrayList<String>();
@@ -160,6 +175,7 @@ Output: "BANC"
     }
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
 6. 60. Kth Permutation Sequence
 
 https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
@@ -227,6 +243,7 @@ Fourth number is 2
 
 Giving us 3142. If you manually list out the permutations using DFS method, it would be 3142. Done! It really was all about pattern finding.
 
+*/
 
 public String getPermutation(int n, int k) {
     int pos = 0;
@@ -261,6 +278,67 @@ public String getPermutation(int n, int k) {
     return String.valueOf(sb);
 }
 
-*--------------------------------------------------------*--------------------------------------------------------------------------------------*
+
+*--------------------------------------------------------*--------------------------------------------------------------------------------------
+
+/*
+
+7. 131. Palindrome Partitioning
+
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+*/
+
+class Solution {
+    
+    List<List<String>> result;
+    public List<List<String>> partition(String s) {
+        result = new ArrayList<List<String>>();
+        partitionUtil(s, 0, new ArrayList<String>());
+        return result;
+    }
+    
+    private void partitionUtil(String a, int start, ArrayList<String> current){
+        if(start == a.length()){
+            result.add(new ArrayList<String>(current));
+            return;
+        }
+        
+        for(int i=start; i<a.length(); i++){
+           if(isPalin(a, start, i)){
+               String currentString = a.substring(start, i+1);
+               current.add(currentString);
+               partitionUtil(a, i+1, current);
+               current.remove(current.size()-1);
+           } 
+        }
+    }
+    
+    private boolean isPalin(String a, int left, int right){
+        while(left<right){
+            if(a.charAt(left) != a.charAt(right)) return false;
+            else{
+                left++;
+                right--;
+            }
+        }
+        
+        return true;
+    }
+}
+
+
+
+
 
 
