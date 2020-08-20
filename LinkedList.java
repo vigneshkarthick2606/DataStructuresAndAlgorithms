@@ -356,3 +356,29 @@
         return head; 
     }
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+10. Reorder List
+
+
+class Solution {
+    public void reorderList(ListNode head) {
+        
+        if (head == null || head.next == null || head.next.next == null) return;
+
+        ListNode slast = head; 
+        ListNode last = head.next; 
+        
+        while (last.next != null) {
+            last = last.next;
+            slast = slast.next;
+        }
+        
+        ListNode tmp = head.next;
+        head.next = last;
+        last.next = tmp;
+	
+		slast.next = null;
+        
+        reorderList(tmp);
+        
+    }
+}
