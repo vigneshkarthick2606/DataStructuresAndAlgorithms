@@ -1,3 +1,5 @@
+/*
+
 1. 743. Network Delay Time
 2. 787. Cheapest Flights Within K Stops
 3. 886. Possible Bipartition
@@ -10,7 +12,7 @@
 8. Disjoint Set (Or Union-Find) 
    547. Friend Circles (Union-Find path compression) https://leetcode.com/problems/friend-circles/discuss/101336/Java-solution-Union-Find
 
-
+9. 797. All Paths From Source to Target
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 Other Graph Problems:
 
@@ -20,6 +22,9 @@ https://leetcode.com/problems/all-paths-from-source-to-target/discuss/118713/Jav
 2. Number of Distinct Islands
 3. Max Area of Island 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+
+*/
+
 1. 743. Network Delay Time
 
     public int networkDelayTime(int[][] times, int N, int K) {
@@ -566,4 +571,33 @@ class Graph {
 	
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
+9. 797. All Paths From Source to Target
+
+Ref: https://leetcode.com/problems/all-paths-from-source-to-target/discuss/118713/Java-DFS-Solution
+*/
   
+class Solution {
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+					
+        path.add(0);
+        dfsSearch(graph, 0, res, path);
+					
+        return res;
+    }
+
+    private void dfsSearch(int[][] graph, int node, List<List<Integer>> res, List<Integer> path) {
+        if (node == graph.length - 1) {
+            res.add(new ArrayList<Integer>(path));
+            return;
+        }
+
+        for (int nextNode : graph[node]) {
+            path.add(nextNode);
+            dfsSearch(graph, nextNode, res, path);
+            path.remove(path.size() - 1);
+        }
+    }
+}
