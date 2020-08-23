@@ -18,6 +18,7 @@
 16. 16. 56. Merge Intervals
 17. 986. Interval List Intersections
 18. 238. Product of Array Except Self
+19. Merge Sort || Count Inversions in an array 
 
 */
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
@@ -716,3 +717,100 @@ public class Solution {
 
 */
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
+// 19. Merge Sort || Count Inversions in an array 
+
+    void merge(int arr[], int l, int m, int r){ 
+ 
+        /* Create temp arrays */
+        int L[] = Arrays.copyOfRange(arr, l, m + 1);  
+        int R[] = Arrays.copyOfRange(arr, m + 1, r + 1); 
+ 
+        // Initial indexes of first and second subarrays 
+        int i = 0, j = 0; 
+  
+        // Initial index of merged subarry array 
+        int k = l; 
+        while (i < L.length && j < R.length) { 
+            if (L[i] <= R[j]) { 
+                arr[k] = L[i]; 
+                i++; 
+            } 
+            else { 
+                arr[k] = R[j]; 
+                j++; 
+            } 
+            k++; 
+        } 
+        
+        /* Copy remaining elements of L[] if any */
+        while (i < L.length) 
+            arr[k++] = L[i++]; 
+        /* Copy remaining elements of R[] if any */
+        while (j < R.length) 
+            arr[k++] = R[j++]; 
+    }
+    
+    
+    void sort(int arr[], int l, int r) { 
+        if (l < r) { 
+            // Find the middle point 
+            int m = (l + r) / 2; 
+            // Sort first and second halves 
+            sort(arr, l, m); 
+            sort(arr, m + 1, r); 
+            // Merge the sorted halves 
+            merge(arr, l, m, r); 
+        } 
+    }
+--------------------------------------------------------------------------------
+
+    int merge(int arr[], int l, int m, int r){ 
+ 
+        /* Create temp arrays */
+        int L[] = Arrays.copyOfRange(arr, l, m + 1);  
+        int R[] = Arrays.copyOfRange(arr, m + 1, r + 1); 
+ 
+        // Initial indexes of first and second subarrays 
+        int i = 0, j = 0, swaps =0; 
+  
+        // Initial index of merged subarry array 
+        int k = l; 
+        while (i < L.length && j < R.length) { 
+            if (L[i] <= R[j]) { 
+                arr[k] = L[i]; 
+                i++; 
+            } 
+            else { 
+                arr[k] = R[j];
+                swaps += (m + 1) - (l + i);  // important point to remember
+                j++; 
+            } 
+            k++; 
+        } 
+        
+        /* Copy remaining elements of L[] if any */
+        while (i < L.length) 
+            arr[k++] = L[i++]; 
+        /* Copy remaining elements of R[] if any */
+        while (j < R.length) 
+            arr[k++] = R[j++];
+        
+        return swaps;
+    }
+    
+    
+    int sort(int arr[], int l, int r) {
+    	int count = 0;
+        if (l < r) { 
+            // Find the middle point 
+            int m = (l + r) / 2; 
+            // Sort first and second halves 
+            count+= sort(arr, l, m); 
+            count+= sort(arr, m + 1, r); 
+            // Merge the sorted halves 
+            count+= merge(arr, l, m, r); 
+        } 
+        return count;
+    }
+   
+*-----------------------------------------------------------------------------------------------------------------------------------------------*	
