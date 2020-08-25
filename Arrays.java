@@ -816,7 +816,18 @@ public class Solution {
    
 *-----------------------------------------------------------------------------------------------------------------------------------------------*	
 
-// 20. Median of two Sorted Arrays 
+/*
+20. Median of two Sorted Arrays
+
+x1 x2|x3 x4 x5 x6
+y1 y2 y3 y4 y5 y6|y7 y8 
+
+x2 <= y7 and y6<=x3 , proves the that mid point is perfect we can calculate median
+
+even: Avg(Math.max(x2,y6) + Math.min(x3,y7))
+odd: Math.max(x2,y6)
+
+*/ 
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         
