@@ -21,6 +21,8 @@
 19. Merge Sort || Count Inversions in an array
 20. Median of two Sorted Arrays 
 21. First Missing Positive
+22. 1310. XOR Queries of a Subarray 
+
 */
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
 // 1. Sort Colors(Dutch National Flag alg)
@@ -863,4 +865,80 @@ odd: Math.max(x2,y6)
         return 0;
     }  
 	
+*-----------------------------------------------------------------------------------------------------------------------------------------------*
+// 21. First Missing Positive 
+
+public class Solution {
+    public int firstMissingPositive(int[] A) {
+        int i = 0;
+        while(i < A.length){
+            if(A[i] == i+1 || A[i] <= 0 || A[i] > A.length) i++;
+            else if(A[A[i]-1] != A[i]) swap(A, i, A[i]-1);
+            else i++;
+        }
+        i = 0;
+        while(i < A.length && A[i] == i+1) i++;
+        return i+1;
+    }
+    
+    private void swap(int[] A, int i, int j){
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
+    }
+}
+
+/*
+
+A[A[i]-1] != A[i]
+Almost the same, but like [3,2,3,4], when i = 0, A[0] = 3, which should be put on position i = 2 where also A[2] = 3. 
+Thus there is no need to do swap and go to else statement i++ for next check or it will go into endless loop
+
+*/
+
+*-----------------------------------------------------------------------------------------------------------------------------------------------*
+/*
+22. 1310. XOR Queries of a Subarray 
+Given the array arr of positive integers and the array queries where queries[i] = [Li, Ri], for each query i compute the XOR of elements from Li to Ri (that is, arr[Li] xor arr[Li+1] xor ... xor arr[Ri] ). Return an array containing the result for the given queries.
+ 
+Example 1:
+
+Input: arr = [1,3,4,8], queries = [[0,1],[1,2],[0,3],[3,3]]
+Output: [2,7,14,8]
+
+Explanation: 
+The binary representation of the elements in the array are:
+1 = 0001 
+3 = 0011 
+4 = 0100 
+8 = 1000 
+The XOR values for queries are:
+[0,1] = 1 xor 3 = 2 
+[1,2] = 3 xor 4 = 7 
+[0,3] = 1 xor 3 xor 4 xor 8 = 14 
+[3,3] = 8
+
+*/
+
+    public int[] xorQueries(int[] A, int[][] queries) {
+        int[] res = new int[queries.length], q;
+        for (int i = 1; i < A.length; ++i)
+            A[i] ^= A[i - 1];
+        for (int i = 0; i < queries.length; ++i) {
+            q = queries[i];
+            res[i] = q[0] > 0 ? A[q[0] - 1] ^ A[q[1]] : A[q[1]];
+        }
+        return res;
+    }
+	
+	
+/* 
+In-place calculate the prefix XOR of input A.
+
+For each query [i, j],
+if i == 0, query result = A[j]
+if i != 0, query result = A[i - 1] ^ A[j]
+
+*/
+
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
