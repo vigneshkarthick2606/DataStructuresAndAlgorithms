@@ -22,6 +22,7 @@
 20. Median of two Sorted Arrays 
 21. First Missing Positive
 22. 1310. XOR Queries of a Subarray 
+23. Power Set 
 
 */
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
@@ -918,6 +919,7 @@ The XOR values for queries are:
 [0,3] = 1 xor 3 xor 4 xor 8 = 14 
 [3,3] = 8
 
+
 */
 
     public int[] xorQueries(int[] A, int[][] queries) {
@@ -933,6 +935,8 @@ The XOR values for queries are:
 	
 	
 /* 
+Sol : Reference https://leetcode.com/problems/xor-queries-of-a-subarray/discuss/470787/JavaC%2B%2BPython-Straight-Forward-Solution
+
 In-place calculate the prefix XOR of input A.
 
 For each query [i, j],
@@ -941,4 +945,41 @@ if i != 0, query result = A[i - 1] ^ A[j]
 
 */
 
+*-----------------------------------------------------------------------------------------------------------------------------------------------*
+/*
+23. Power Set 
+
+Set  = [a,b,c]
+power_set_size = pow(2, 3) = 8
+Run for binary counter = 000 to 111
+
+Value of Counter            Subset
+    000                    -> Empty set
+    001                    -> a
+    010                    -> b
+    011                    -> ab
+    100                    -> c
+    101                    -> ac
+    110                    -> bc
+    111                    -> abc
+	
+*/
+
+	public static void findPowerSet(int[] S){
+		// N stores total number of subsets
+		int N = (int) Math.pow(2, S.length);
+
+		// generate each subset one by one
+		for (int i = 0; i < N; i++) {
+			// check every bit of i
+			for (int j = 0; j < S.length; j++) {
+				// if j'th bit of i is set, print S[j]
+				if ((i & (1 << j)) != 0) {
+					System.out.print(S[j] + " ");
+				}
+			}
+			System.out.println();
+		}
+	}
+	
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
