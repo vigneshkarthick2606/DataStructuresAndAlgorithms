@@ -948,6 +948,8 @@ if i != 0, query result = A[i - 1] ^ A[j]
 *-----------------------------------------------------------------------------------------------------------------------------------------------*
 /*
 23. Power Set 
+Ref: https://www.geeksforgeeks.org/power-set/
+https://www.techiedelight.com/generate-power-set-given-set/
 
 Set  = [a,b,c]
 power_set_size = pow(2, 3) = 8
