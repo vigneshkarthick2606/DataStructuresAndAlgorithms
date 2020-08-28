@@ -12,6 +12,7 @@
    547. Friend Circles (Union-Find path compression) https://leetcode.com/problems/friend-circles/discuss/101336/Java-solution-Union-Find
 9. 797. All Paths From Source to Target
 10. 1135. Connecting Cities With Minimum Cost (Krushkals Alg)
+11. 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance (Floyd–Warshall algorithm)
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 Other Graph Problems:
@@ -22,10 +23,26 @@ https://leetcode.com/problems/all-paths-from-source-to-target/discuss/118713/Jav
 2. Number of Distinct Islands
 3. Max Area of Island 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+Notes:
+
+Comparison of Dijkstra’s and Floyd–Warshall algorithms	(https://www.geeksforgeeks.org/comparison-dijkstras-floyd-warshall-algorithms/)
+
+Main Purposes:
+1. Dijkstra’s Algorithm is one example of a single-source shortest or SSSP algorithm, i.e., given a source vertex it finds shortest path from source to all other vertices.
+2. Floyd Warshall Algorithm is an example of all-pairs shortest path algorithm, meaning it computes the shortest path between all pair of nodes.
+
+Time Complexities :
+Time Complexity of Dijkstra’s Algorithm: O(E log V)
+Time Complexity of Floyd Warshall: O(V3)
+
+We can use Dijskstra’s shortest path algorithm for finding all pair shortest paths by running it for every vertex. 
+But time complexity of this would be O(VE Log V) which can go (V3 Log V) in worst case.
+
+Floyd Warshall works for negative edge but no negative cycle, whereas Dijkstra’s algorithm don’t work for negative edges.
 
 */
 
-1. 743. Network Delay Time
+1. 743. Network Delay Time (Prims Alg - MST)
 
     public int networkDelayTime(int[][] times, int N, int K) {
         
@@ -693,5 +710,76 @@ class Solution {
         return n == 1 ? res : -1;
     }
 }
+
+*--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
+11. 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance (Floyd–Warshall algorithm)
+
+There are n cities numbered from 0 to n-1. Given the array edges where edges[i] = [fromi, toi, weighti] represents a bidirectional and weighted edge between cities fromi and toi, and given the integer distanceThreshold.
+
+Return the city with the smallest number of cities that are reachable through some path and whose distance is at most distanceThreshold, If there are multiple such cities, return the city with the greatest number.
+
+Notice that the distance of a path connecting cities i and j is equal to the sum of the edges' weights along that path.
+
+Input: n = 4, edges = [[0,1,3],[1,2,1],[1,3,4],[2,3,1]], distanceThreshold = 4
+Output: 3
+Explanation: The figure above describes the graph. 
+The neighboring cities at a distanceThreshold = 4 for each city are:
+City 0 -> [City 1, City 2] 
+City 1 -> [City 0, City 2, City 3] 
+City 2 -> [City 0, City 1, City 3] 
+City 3 -> [City 1, City 2] 
+Cities 0 and 3 have 2 neighboring cities at a distanceThreshold = 4, but we have to return city 3 since it has the greatest number.
+
+Input: n = 5, edges = [[0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1]], distanceThreshold = 2
+Output: 0
+Explanation: The figure above describes the graph. 
+The neighboring cities at a distanceThreshold = 2 for each city are:
+City 0 -> [City 1] 
+City 1 -> [City 0, City 4] 
+City 2 -> [City 3, City 4] 
+City 3 -> [City 2, City 4]
+City 4 -> [City 1, City 2, City 3] 
+The city 0 has 1 neighboring city at a distanceThreshold = 2.
+
+*/
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[][] dis = new int[n][n];
+        int res = 0, smallest = n;
+        for (int[] row : dis)
+            Arrays.fill(row, 10001);
+        for (int[] e : edges)
+            dis[e[0]][e[1]] = dis[e[1]][e[0]] = e[2];
+        for (int i = 0; i < n; ++i)
+            dis[i][i] = 0;
+        for (int k = 0; k < n; ++k)
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < n; ++j)
+                    dis[i][j] = Math.min(dis[i][j], dis[i][k] + dis[k][j]);
+        for (int i = 0; i < n; i++) {
+            int count = 0;
+            for (int j = 0; j < n; ++j)
+                if (dis[i][j] <= distanceThreshold)
+                    ++count;
+            if (count <= smallest) {
+                res = i;
+                smallest = count;
+            }
+        }
+        return res;
+    }
+
+/*
+Ref: https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/discuss/490312/JavaC%2B%2BPython-Easy-Floyd-Algorithm
+Becasue O(N^3) is accepted in this problem, we don't need a very fast solution.
+we can simply use Floyd algorithm to find the minium distance any two cities.
+
+Reference Floyd–Warshall algorithm I first saw @awice using it long time ago. It's really easy and makes a lot sense.
+
+Iterate all point middle point k,iterate all pairs (i,j).
+If it go through the middle point k, dis[i][j] = dis[i][k] + dis[k][j].
+
+Complexity: Time O(N^3) || Space O(N^2)
+*/
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
