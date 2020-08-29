@@ -428,6 +428,89 @@ public class DPQ {
     } 
 }
 
+
+----------------------------
+
+    public int findMinVertex(boolean[] visited, int[] distance){
+		int minVertex = -1;
+		for(int i=0; i<visited.length; i++){
+			if(!visited[i] && (minVertex == -1 || distance[i] < distance[minVertex])) // i==-1 is for skipping index out of bound in first iteration
+				minVertex = i;
+		}
+		return minVertex;
+	}
+
+    public void dijkstra(int[][] graph){ 
+	    int V = graph.length;
+		boolean[] visited = new boolean[V];
+		int[] distance = new distance[V];
+		distance[0] = 0; // set distance of source to 0
+		for(int i=1; i<N; i++)
+			distance[0] = Integer.MAX_VALUE;
+		
+		for(int i=0; i<V; i++){
+			// Find Vertex with min distance which is not visited
+			int minVertex = findMinVertex(visited, distance);
+			visited[minVertex] = true;
+			// Explore Neighbors
+			for(int j=0; j<V; j++){
+				if(graph[minVertex][j] !=0 && !visited[j] && distance[j] != Integer.MAX_VALUE){
+					int newDistance = distance[minVertex] + graph[minVertex][j];
+					if(newDistance < distance[j]){
+						distance[j] = newDistance;
+					}
+				}
+			}
+		}
+		
+		print(distance);
+    }
+*--------------------------------------------------------*--------------------------------------------------------------------------------------*
+Prim Algorithm:
+
+    public List<int[]> primsMST(int[][] graph){ 
+	    int V = graph.length;
+		boolean[] visited = new boolean[V];
+		int[] weight = new weight[V];
+		int[] parent = new parent[V];
+		
+		weight[0] = 0;
+		parent[0] = -1;
+
+		for(int i=1; i<N; i++){
+			weight[i] = Integer.MAX_VALUE;
+			parent[i] = i;
+		}
+		
+		for(int i=0; i<V; i++){
+			// Find Vertex with min distance which is not visited
+			int minVertex = findMinVertex(visited, weight);
+			visited[minVertex] = true;
+			// Explore Neighbors
+			for(int j=0; j<V; j++){
+				if(graph[minVertex][j] !=0 && !visited[j]){
+					if(graph[minVertex][j] < weight[j]){
+						weight[j] = graph[minVertex][j];
+						parent[j] = minVertex;
+					}
+				}
+			}
+		}
+		
+		List<int[]> ans = new ArrayList<>();
+		for(int i=1; i<V; i++){
+			if(parent[i] < i)
+				ans.add(new int[] {parent[i], i, weight[i]});
+			else
+			    ans.add(new int[] {i, parent[i], weight[i]});
+			
+		}
+		
+		return ans;
+    }
+
+	
+	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 8. Disjoint Set (Or Union-Find) | Set 1 (Detect Cycle in an Undirected Graph)
 
