@@ -1,4 +1,5 @@
-Trees :
+/*
+
 1. Given a binary tree, find size of largest binary search subtree in this binary tree.(Largest BST in Binary Tree) Tushar Roy
 2. Lowest Common Ancestor In A BST
 3. 94. Binary Tree Inorder Traversal
@@ -25,13 +26,13 @@ Trees :
 21. 222. Count Complete Tree Nodes
 22. Find Leaves of Binary Tree (Java) LeetCode – Premium (https://www.programcreek.com/ )
 23. Find distance between two nodes of a Binary Tree
-*--------------------------------------------------------*--------------------------------------------------------------------------------------*
-Trie:
-1. Longest Common Prefix
+24. 450. Delete Node in a BST
+
+*/
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-1. Given a binary tree, find size of largest binary search subtree in this binary tree.(Largest BST in Binary Tree) Tushar Roy
+// 1. Given a binary tree, find size of largest binary search subtree in this binary tree.(Largest BST in Binary Tree) Tushar Roy
 
 class MinMax{
     int min;
@@ -95,7 +96,7 @@ class MinMax{
     }
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-2. Lowest Common Ancestor In A BST
+// 2. Lowest Common Ancestor In A BST
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) { 
         
@@ -113,7 +114,7 @@ class MinMax{
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-3. 94. Binary Tree Inorder Traversal
+// 3. 94. Binary Tree Inorder Traversal
 
     public void helper(TreeNode root, List < Integer > res) {
         if (root != null) {
@@ -145,7 +146,7 @@ class MinMax{
         return res;
     }
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-4. 102. Binary Tree Level Order Traversal
+// 4. 102. Binary Tree Level Order Traversal
 
     public List<List<Integer>> levelOrder(TreeNode root) {
         
@@ -181,7 +182,8 @@ class MinMax{
     }
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-6. 297. Serialize and Deserialize Binary Tree
+// 6. 297. Serialize and Deserialize Binary Tree
+
 // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         
@@ -249,7 +251,7 @@ class MinMax{
         
     }
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-7. 173. Binary Search Tree Iterator
+// 7. 173. Binary Search Tree Iterator
 
 
 class BSTIterator {
@@ -296,7 +298,7 @@ class BSTIterator {
 }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-8. 938. Range Sum of BST
+// 8. 938. Range Sum of BST
 
 
     public int rangeSumBST(TreeNode root, int L, int R) {
@@ -330,7 +332,7 @@ class BSTIterator {
 
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-9. 669. Trim a Binary Search Tree
+// 9. 669. Trim a Binary Search Tree
 
     public TreeNode trimBST(TreeNode root, int L, int R) {
         if (root == null) return root;
@@ -382,7 +384,7 @@ class BSTIterator {
     }
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-10. 1110. Delete Nodes And Return Forest
+// 10. 1110. Delete Nodes And Return Forest
 
     public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
         List<TreeNode> res = new ArrayList<>();
@@ -412,7 +414,7 @@ class BSTIterator {
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-11. 662. Maximum Width of Binary Tree (not same level , litlle tricky)
+// 11. 662. Maximum Width of Binary Tree (not same level , litlle tricky)
 
 // DFS
   class Solution {
@@ -463,7 +465,7 @@ class BSTIterator {
   }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-12. 105. Construct Binary Tree from Preorder and Inorder Traversal
+// 12. 105. Construct Binary Tree from Preorder and Inorder Traversal
 
 class Solution {
     
@@ -500,7 +502,7 @@ class Solution {
 }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-13. 106. Construct Binary Tree from Inorder and Postorder Traversal
+// 13. 106. Construct Binary Tree from Inorder and Postorder Traversal
 
 class Solution {
     
@@ -539,7 +541,7 @@ class Solution {
 }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-14. 108. Convert Sorted Array to Binary Search Tree
+// 14. 108. Convert Sorted Array to Binary Search Tree
 
     public TreeNode sortedArrayToBST(int[] nums) {
         if(nums == null || nums.length==0) return null;
@@ -558,7 +560,7 @@ class Solution {
   }
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-15. 99. Recover Binary Search Tree https://leetcode.com/problems/recover-binary-search-tree/discuss/32535/No-Fancy-Algorithm-just-Simple-and-Powerful-In-Order-Traversal
+// 15. 99. Recover Binary Search Tree https://leetcode.com/problems/recover-binary-search-tree/discuss/32535/No-Fancy-Algorithm-just-Simple-and-Powerful-In-Order-Traversal
 
     TreeNode firstElement, secondElement, prevElement  = null;
     
@@ -593,9 +595,11 @@ class Solution {
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-
+/*
 16. 783. Minimum Distance Between BST Nodes
     530. Minimum Absolute Difference in BST
+	
+*/
 	
     Integer res = Integer.MAX_VALUE, pre = null;
     public int minDiffInBST(TreeNode root) {
@@ -608,7 +612,7 @@ class Solution {
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-17. 110. Balanced Binary Tree
+// 17. 110. Balanced Binary Tree
 
     // botton up approach - O(n)
     public boolean isBalanced(TreeNode root) {
@@ -646,7 +650,7 @@ class Solution {
 	}
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-18. 114. Flatten Binary Tree to Linked List
+// 18. 114. Flatten Binary Tree to Linked List
     // depends on problem to use stack or queue
     public void flatten(TreeNode root) {
         
@@ -673,7 +677,7 @@ class Solution {
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-19. 437. Path Sum III
+// 19. 437. Path Sum III
 
     public int pathSum(TreeNode root, int sum) {
         if(root==null) return 0;
@@ -689,7 +693,7 @@ class Solution {
           
     }
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-20. 863. All Nodes Distance K in Binary Tree
+// 20. 863. All Nodes Distance K in Binary Tree
 
 
     void printkdistanceNodeDown(Node node, int k){ 
@@ -815,7 +819,7 @@ class Solution {
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*	
 
-21. 222. Count Complete Tree Nodes
+// 21. 222. Count Complete Tree Nodes
 
     // complexity is O(N)
     public int countNodes(TreeNode root) {
@@ -858,7 +862,7 @@ class Solution {
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-22. Find Leaves of Binary Tree (Java) LeetCode – Premium (https://www.programcreek.com/ )
+// 22. Find Leaves of Binary Tree (Java) LeetCode – Premium (https://www.programcreek.com/ )
 
 https://www.programcreek.com/2014/07/leetcode-find-leaves-of-binary-tree-java/#:~:text=Given%20a%20binary%20tree%2C%20collect,until%20the%20tree%20is%20empty.&text=Returns%20%5B4%2C%205%2C%203,2%5D%2C%20%5B1%5D.
 
@@ -890,11 +894,11 @@ private int helper(List<List<Integer>> list, TreeNode root){
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
-23. Find distance between two nodes of a Binary Tree
+// 23. Find distance between two nodes of a Binary Tree
 
-Ref: https://www.geeksforgeeks.org/find-distance-between-two-nodes-of-a-binary-tree/
+// Ref: https://www.geeksforgeeks.org/find-distance-between-two-nodes-of-a-binary-tree/
 
-We first find LCA of two nodes. Then we find distance from LCA to two nodes.
+// We first find LCA of two nodes. Then we find distance from LCA to two nodes.
 
     public static Node LCA(Node root, int n1, int n2){ 
         if (root == null) return root; 
@@ -928,3 +932,26 @@ We first find LCA of two nodes. Then we find distance from LCA to two nodes.
     } 
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+
+// 24. 450. Delete Node in a BST https://leetcode.com/problems/delete-node-in-a-bst/
+
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return root;
+        if (root.val > key) root.left = deleteNode(root.left, key);
+        else if (root.val < key) root.right = deleteNode(root.right, key);
+        else {
+            if (root.left == null) return root.right;
+            else if (root.right == null) return root.left;
+            
+            root.val = getMin(root.right);
+            root.right = deleteNode(root.right, root.val);
+        }
+        return root;
+    }
+    
+    private int getMin(TreeNode root) {
+        while (root.left != null) {root = root.left;}
+        return root.val;
+    }
+}
