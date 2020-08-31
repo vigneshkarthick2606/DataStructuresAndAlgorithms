@@ -161,6 +161,8 @@ class Trie {
     }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
+**A Binary Heap is a Complete Binary Tree.
+
 abstract class Heap {
 
     protected int capacity;
