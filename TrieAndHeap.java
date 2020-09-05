@@ -304,3 +304,26 @@ class MinHeap extends Heap {
         }
     }
 }
+--------------------------------------------------------------------
+//Merge K Sorted Arrays
+
+  public static List<Integer> mergeSortedArrays(List<List<Integer>> arrays) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[2] - b[2]);
+		
+        for(int i=0;i<arrays.size();i++)
+            if(arrays.get(i) != null) 
+              pq.add(new int[]{ i, 0, arrays.get(i).get(0) });
+        
+        while(!pq.isEmpty()) {
+            int[] temp = pq.poll();
+            answer.add(temp[2]);
+            //Check if last element
+            if (temp[1] >= arrays.get(temp[0]).size() - 1) continue;
+            pq.add(new int[] { temp[0], temp[1] + 1, arrays.get(temp[0]).get(temp[1] + 1) });
+        }
+
+        return answer;
+  }
+  
+--------------------------------------------------------------------

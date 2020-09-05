@@ -1,6 +1,7 @@
 /*
 
 1. Given a binary tree, find size of largest binary search subtree in this binary tree.(Largest BST in Binary Tree) Tushar Roy
+   98. Validate Binary Search Tree
 2. Lowest Common Ancestor In A BST
 3. 94. Binary Tree Inorder Traversal
 4. 102. Binary Tree Level Order Traversal
@@ -51,20 +52,15 @@ class MinMax{
 
     private MinMax largest(Node root){
         //if root is null return min as Integer.MAX and max as Integer.MIN		
-        if(root == null){
-            return new MinMax();
-        }
-        
-        //postorder traversal of tree. First visit left and right then
-        //use information of left and right to calculate largest BST.
+        if(root == null) return new MinMax();
 		
+        //postorder traversal of tree. First visit left and right then use information of left and right to calculate largest BST.
         MinMax leftMinMax = largest(root.left);
         MinMax rightMinMax = largest(root.right);
         
         MinMax m = new MinMax();
         
-        //if either of left or right subtree says its not BST or the data
-        //of this node is not greater/equal than max of left and less than min of right
+        //if either of left or right subtree says its not BST or the data of this node is not greater/equal than max of left and less than min of right
         //then subtree with this node as root will not be BST. 
         //Return false and max size of left and right subtree to parent
 		
@@ -78,22 +74,36 @@ class MinMax{
             return m;
         }
         
-        //if we reach this point means subtree with this node as root is BST.
-        //Set isBST as true. Then set size as size of left + size of right + 1.
+        //if we reach this point means subtree with this node as root is BST. Set isBST as true. Then set size as size of left + size of right + 1.
         //Set min and max to be returned to parent.
         m.isBST = true;
         m.size = leftMinMax.size + rightMinMax.size + 1;
      
-        //if root.left is null then set root.data as min else
-        //take min of left side as min
+        //if root.left is null then set root.data as min else take min of left side as min
         m.min = root.left != null ? leftMinMax.min : root.data;
   
-        //if root.right is null then set root.data as max else
-        //take max of right side as max.
+        //if root.right is null then set root.data as max else take max of right side as max.
         m.max = root.right != null ? rightMinMax.max : root.data;
    
         return m;
     }
+	
+	//98. Validate Binary Search Tree
+    public boolean isValidBST(TreeNode root) {
+        return isValidBSTUtil(root, null, null); 
+    }
+    
+    public boolean isValidBSTUtil(TreeNode root, Integer min, Integer max) {
+        
+        if (root==null) return true;
+        
+        if ((min!=null) && (root.val <= min)) return false;
+        if ((max!=null) && (root.val >= max)) return false;
+        
+        return isValidBSTUtil(root.left, min, root.val) &&
+               isValidBSTUtil(root.right, root.val, max);
+    }
+	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 
 // 2. Lowest Common Ancestor In A BST
