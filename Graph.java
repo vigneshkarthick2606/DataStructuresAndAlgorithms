@@ -13,6 +13,7 @@
 9. 797. All Paths From Source to Target
 10. 1135. Connecting Cities With Minimum Cost (Krushkals Alg)
 11. 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance (Floyd–Warshall algorithm)
+12. 212. Word Search II
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 Other Graph Problems:
@@ -454,7 +455,9 @@ public class DPQ {
 			visited[minVertex] = true;
 			// Explore Neighbors
 			for(int j=0; j<V; j++){
-				if(graph[minVertex][j] !=0 && !visited[j] && distance[j] != Integer.MAX_VALUE){
+				if(graph[minVertex][j] !=0 && !visited[j] && graph[minVertex][j] != Integer.MAX_VALUE){
+					// j is unvisted neighbor of minVertex
+					//calculate distance to reach j via minVertex
 					int newDistance = distance[minVertex] + graph[minVertex][j];
 					if(newDistance < distance[j]){
 						distance[j] = newDistance;
@@ -831,14 +834,18 @@ The city 0 has 1 neighboring city at a distanceThreshold = 2.
         int res = 0, smallest = n;
         for (int[] row : dis)
             Arrays.fill(row, 10001);
+		
         for (int[] e : edges)
             dis[e[0]][e[1]] = dis[e[1]][e[0]] = e[2];
+		
         for (int i = 0; i < n; ++i)
             dis[i][i] = 0;
+		
         for (int k = 0; k < n; ++k)
             for (int i = 0; i < n; ++i)
                 for (int j = 0; j < n; ++j)
                     dis[i][j] = Math.min(dis[i][j], dis[i][k] + dis[k][j]);
+				
         for (int i = 0; i < n; i++) {
             int count = 0;
             for (int j = 0; j < n; ++j)
@@ -866,3 +873,140 @@ Complexity: Time O(N^3) || Space O(N^2)
 */
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+
+/*
+12. 212. Word Search II
+
+Ref: https://leetcode.com/problems/word-search-ii/discuss/59780/Java-15ms-Easiest-Solution-(100.00)
+
+Given a 2D board and a list of words from the dictionary, find all words in the board.
+
+Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+
+ 
+
+Example:
+
+Input: 
+board = [
+  ['o','a','a','n'],
+  ['e','t','a','e'],
+  ['i','h','k','r'],
+  ['i','f','l','v']
+]
+words = ["oath","pea","eat","rain"]
+
+Output: ["eat","oath"]
+*/
+
+public List<String> findWords(char[][] board, String[] words) {
+    List<String> res = new ArrayList<>();
+    TrieNode root = buildTrie(words);
+    for (int i = 0; i < board.length; i++) {
+        for (int j = 0; j < board[0].length; j++) {
+            dfs (board, i, j, root, res);
+        }
+    }
+    return res;
+}
+
+public void dfs(char[][] board, int i, int j, TrieNode p, List<String> res) {
+    char c = board[i][j];
+    if (c == '#' || p.next[c - 'a'] == null) return;
+    p = p.next[c - 'a'];
+    if (p.word != null) {   // found one
+        res.add(p.word);
+        p.word = null;     // de-duplicate
+    }
+
+    board[i][j] = '#';
+    if (i > 0) dfs(board, i - 1, j ,p, res); 
+    if (j > 0) dfs(board, i, j - 1, p, res);
+    if (i < board.length - 1) dfs(board, i + 1, j, p, res); 
+    if (j < board[0].length - 1) dfs(board, i, j + 1, p, res); 
+    board[i][j] = c;
+}
+
+public TrieNode buildTrie(String[] words) {
+    TrieNode root = new TrieNode();
+    for (String w : words) {
+        TrieNode p = root;
+        for (char c : w.toCharArray()) {
+            int i = c - 'a';
+            if (p.next[i] == null) p.next[i] = new TrieNode();
+            p = p.next[i];
+       }
+       p.word = w;
+    }
+    return root;
+}
+
+class TrieNode {
+    TrieNode[] next = new TrieNode[26];
+    String word;
+}
+
+---------------------------------------------------------------------------------------------------
+
+public class Kosaraju{
+    /** DFS function **/
+    public void DFS(List<Integer>[] graph, int v, boolean[] visited, List<Integer> comp) 
+    {
+        visited[v] = true;
+        for (int i = 0; i < graph[v].size(); i++)
+            if (!visited[graph[v].get(i)])
+                DFS(graph, graph[v].get(i), visited, comp);
+        comp.add(v);
+    }
+    /** function fill order **/
+    public List<Integer> fillOrder(List<Integer>[] graph, boolean[] visited) 
+    {        
+        int V = graph.length;
+        List<Integer> order = new ArrayList<Integer>();
+ 
+        for (int i = 0; i < V; i++)
+            if (!visited[i])
+                DFS(graph, i, visited, order);
+        return order;
+    }
+    /** function to get transpose of graph **/
+    public List<Integer>[] getTranspose(List<Integer>[] graph)
+    {
+        int V = graph.length;
+        List<Integer>[] g = new List[V];
+        for (int i = 0; i < V; i++)
+            g[i] = new ArrayList<Integer>();
+        for (int v = 0; v < V; v++)
+            for (int i = 0; i < graph[v].size(); i++)
+                g[graph[v].get(i)].add(v);
+        return g;
+    }
+    /** function to get all SCC **/
+    public List<List<Integer>> getSCComponents(List<Integer>[] graph)
+    {
+        int V = graph.length;
+        boolean[] visited = new boolean[V];
+        List<Integer> order = fillOrder(graph, visited);       
+        /** get transpose of the graph **/
+        List<Integer>[] reverseGraph = getTranspose(graph);        
+        /** clear visited array **/
+        visited = new boolean[V];
+        /** reverse order or alternatively use a stack for order **/
+        Collections.reverse(order);
+ 
+        /** get all scc **/
+        List<List<Integer>> SCComp = new ArrayList<>();
+        for (int i = 0; i < order.size(); i++)
+        {
+            /** if stack is used for order pop out elements **/
+            int v = order.get(i);
+            if (!visited[v]) 
+            {
+                List<Integer> comp = new ArrayList<>();
+                DFS(reverseGraph, v, visited, comp);
+                SCComp.add(comp);
+            }
+        }
+        return SCComp;
+    }
+}
