@@ -7,7 +7,7 @@
 5. Generate all Parentheses II
 6. 60. Kth Permutation Sequence
 7. 131. Palindrome Partitioning
-
+8. 394. Decode String
 
 */
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
@@ -337,8 +337,54 @@ class Solution {
     }
 }
 
+*--------------------------------------------------------*--------------------------------------------------------------------------------------
 
+/*
+8. 394. Decode String
 
+Input: s = "3[a]2[bc]"
+Output: "aaabcbc"
 
+*/ 
 
+class Solution {
+    public String decodeString(String s) {
+        
+        Stack<Integer> count = new Stack<>();
+        Stack<String> str = new Stack<>();
+        String res =  "";
+        
+        int i=0;
+        char[] input = s.toCharArray();
+        
+        while(i<s.length()){
+            if(Character.isDigit(input[i])){
+                int val = 0;
+                while(Character.isDigit(input[i])){
+                    val = (val * 10) + Integer.valueOf(input[i] - '0');
+                    i++;
+                }
+                count.push(val);
+            }else if(input[i] == '['){
+                str.push(res);
+                res = "";
+                i++;
+            }else if(input[i] == ']'){
+                int times = count.pop();
+                StringBuilder curr = new StringBuilder(str.pop());
+                for(int j=0; j<times; j++){
+                    curr.append(res);
+                }
+                res = curr.toString();
+                i++;
+                
+            }else{
+                res += input[i++];
+            }
+        }
+        
+        return res;
+    }
+}
 
+*--------------------------------------------------------*--------------------------------------------------------------------------------------
