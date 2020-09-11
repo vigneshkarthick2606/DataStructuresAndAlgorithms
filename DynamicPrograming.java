@@ -12,12 +12,16 @@ Dynamic Programming
 10. Longest Common Subsequence   https://leetcode.com/problems/longest-common-subsequence/ 
 11. Longest Common Substring
 12. Jump Game II 
+13. Maximum Product Subarray
+
+Solution
+
 ---------------------
-13. Matrix Chain Multiplication - Tushar Roy
-14. Partition problem
-15. Rod Cutting
-16. Egg drop problem https://leetcode.com/problems/super-egg-drop/discuss/158974/C%2B%2BJavaPython-2D-and-1D-DP-O(KlogN)
-17. Dungeon Game
+Matrix Chain Multiplication - Tushar Roy
+Partition problem
+Rod Cutting
+Egg drop problem https://leetcode.com/problems/super-egg-drop/discuss/158974/C%2B%2BJavaPython-2D-and-1D-DP-O(KlogN)
+Dungeon Game
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
 1. Solves 0/1 knapsack in bottom up dynamic programming
 
@@ -377,8 +381,45 @@ Dynamic Programming
     }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
+/*
+13. Maximum Product Subarray
+Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
 
-13. Matrix Chain Multiplication - Tushar Roy
+Input: [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+
+*/
+
+    public int maxProductUtil(int A[], int n) {
+        
+        if (n == 0) return 0;
+
+        int maxProduct = A[0];
+        int minProduct = A[0];
+        int maxRes = A[0];
+
+        for (int i = 1; i < n; i++)
+        {
+            if (A[i] >= 0)
+            {
+                maxProduct = Math.max(maxProduct * A[i], A[i]);
+                minProduct = Math.min(minProduct * A[i], A[i]);
+            }
+            else
+            {
+                int temp = maxProduct;
+                maxProduct = Math.max(minProduct * A[i], A[i]);
+                minProduct = Math.min(temp * A[i], A[i]);
+            }
+            maxRes = Math.max(maxRes, maxProduct);
+        }
+        
+        return maxRes;
+     }
+
+*--------------------------------------------------------*--------------------------------------------------------------------------------------*
+Matrix Chain Multiplication - Tushar Roy
 
 public class MatrixMultiplicationCost {
 
@@ -421,13 +462,13 @@ public class MatrixMultiplicationCost {
 }
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-14. Partition problem
+Partition problem
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-15. Rod Cutting
+Rod Cutting
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-16. Egg drop problem https://leetcode.com/problems/super-egg-drop/discuss/158974/C%2B%2BJavaPython-2D-and-1D-DP-O(KlogN)
+Egg drop problem https://leetcode.com/problems/super-egg-drop/discuss/158974/C%2B%2BJavaPython-2D-and-1D-DP-O(KlogN)
 
 The dp equation is:
 	dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1,
@@ -448,6 +489,6 @@ The dp equation is:
     }
 	
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
-17. Dungeon Game
+Dungeon Game
 
 *--------------------------------------------------------*--------------------------------------------------------------------------------------*
